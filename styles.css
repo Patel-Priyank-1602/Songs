@@ -1,0 +1,586 @@
+/* Base styles with CSS reset and variables */
+:root {
+    --primary: #00ddeb;
+    --primary-dark: #0097a7;
+    --bg-dark: #1a1a2e;
+    --bg-darker: #16213e;
+    --text: #e0e0e0;
+    --text-muted: rgba(255, 255, 255, 0.65);
+    --glass-bg: rgba(26, 26, 46, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --item-hover: rgba(255, 255, 255, 0.15);
+    --item-bg: rgba(255, 255, 255, 0.05);
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.6);
+    --radius-sm: 8px;
+    --radius-md: 15px;
+    --radius-lg: 20px;
+    --radius-full: 50%;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+  }
+  
+  html {
+    font-size: 16px; /* Base font size */
+  }
+  
+  body {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); /* Handle notched displays */
+  }
+  
+  /* Header Styles */
+  .header {
+    background: rgba(26, 26, 46, 0.95);
+    padding: 10px 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    border-bottom: 1px solid var(--glass-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-sm);
+    padding-top: max(10px, env(safe-area-inset-top)); /* Handle notched displays */
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .profile-photo {
+    width: 45px;
+    height: 45px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 10px rgba(0, 221, 235, 0.5);
+  }
+  
+  .header-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Main Container */
+  main.container {
+    background: var(--glass-bg);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 15px;
+    margin: 90px auto 20px;
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    flex-grow: 1;
+    position: relative;
+    z-index: 10;
+  }
+  
+  @media (min-width: 520px) {
+    main.container {
+      max-width: 520px;
+      padding: 30px;
+    }
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    position: relative;
+  }
+  
+  h1::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    margin: 8px auto 0;
+    border-radius: 3px;
+  }
+  
+  /* Album Cover */
+  .album-cover {
+    width: 180px;
+    height: 180px;
+    border-radius: var(--radius-md);
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: rgba(40, 44, 70, 0.5);
+  }
+  
+  @media (min-width: 360px) {
+    .album-cover {
+      width: 200px;
+      height: 200px;
+    }
+  }
+  
+  @media (min-width: 520px) {
+    .album-cover {
+      width: 220px;
+      height: 220px;
+    }
+  }
+  
+  #album-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, rgba(40, 44, 70, 0.6), rgba(22, 26, 42, 0.8));
+    border-radius: var(--radius-md);
+  }
+  
+  /* Song Info */
+  .song-info {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0 5px;
+  }
+  
+  .song-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .artist-name {
+    font-size: 1rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Controls */
+  .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .control-button {
+    background: var(--item-bg);
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    width: 45px;
+    height: 45px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    touch-action: manipulation; /* Improve touch responsiveness */
+  }
+  
+  .play-pause {
+    width: 55px;
+    height: 55px;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    position: relative;
+    z-index: 5;
+  }
+  
+  /* Progress Bar with improved touch target */
+  .progress-container {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    height: 10px; /* Increased height for better touch target */
+    width: 100%;
+    margin-bottom: 15px;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    position: relative;
+    padding: 3px 0; /* Padding to increase touch target without changing visual height */
+  }
+  
+  .progress-bar {
+    background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    height: 10px; /* Match parent height */
+    width: 0%;
+    border-radius: 12px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 5px rgba(0, 221, 235, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .time-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+    padding: 0 3px;
+  }
+  
+  /* Playlist */
+  .playlist {
+    background: rgba(22, 33, 62, 0.6);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    max-height: 280px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .playlist::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .playlist::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .playlist::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+  }
+  
+  .playlist-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+  }
+  
+  .playlist-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+  
+  .playlist-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    cursor: pointer;
+    background: var(--item-bg);
+    transition: all 0.3s ease;
+    user-select: none;
+    border: 1px solid transparent;
+    touch-action: manipulation; /* Improve touch responsiveness */
+  }
+  
+  .playlist-item-number {
+    width: 25px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+  }
+  
+  .playlist-item.active .playlist-item-number {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .playlist-item-info {
+    flex: 1;
+    padding: 0 8px;
+    overflow: hidden;
+  }
+  
+  .playlist-item-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .playlist-item-artist {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .playlist-item-duration {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    width: 40px;
+    text-align: right;
+  }
+  
+  /* Footer Styles */
+  .footer {
+    background: rgba(26, 26, 46, 0.95);
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+    padding-bottom: max(15px, env(safe-area-inset-bottom)); /* Handle notched displays */
+  }
+  
+  .footer-contact h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .footer-contact ul {
+    list-style: none;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .footer-contact li {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  
+  .footer-contact i {
+    margin-right: 8px;
+    color: var(--primary);
+  }
+  
+  .footer-content p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-top: 8px;
+  }
+  
+  /* Volume control */
+  .volume-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    padding: 0 5px;
+  }
+  
+  .volume-icon {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    width: 20px;
+  }
+  
+  .volume-slider {
+    flex-grow: 1;
+    height: 8px; /* Increased for better touch target */
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 10px 0; /* Increased touch target without changing visual height */
+    position: relative;
+  }
+  
+  .volume-progress {
+    height: 8px;
+    width: 70%;
+    background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+  
+  /* Media Queries */
+  /* Small phones */
+  @media (max-width: 320px) {
+    html {
+      font-size: 14px; /* Slightly smaller base font */
+    }
+    
+    .album-cover {
+      width: 150px;
+      height: 150px;
+    }
+    
+    .control-button {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .play-pause {
+      width: 50px;
+      height: 50px;
+    }
+    
+    .playlist-item {
+      padding: 10px 8px;
+    }
+    
+    .header-name {
+      font-size: 1.1rem;
+    }
+  }
+  
+  /* Better landscape mode */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .header {
+      padding: 5px 15px;
+    }
+    
+    main.container {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto 1fr;
+      grid-gap: 10px;
+      padding: 15px;
+    }
+    
+    h1 {
+      grid-column: 1 / 3;
+      margin-bottom: 10px;
+      font-size: 1.4rem;
+    }
+    
+    .album-cover {
+      grid-column: 1;
+      grid-row: 2;
+      width: 120px;
+      height: 120px;
+      margin: 0;
+    }
+    
+    .player-controls-container {
+      grid-column: 2;
+      grid-row: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-left: 15px;
+    }
+    
+    .song-info {
+      text-align: left;
+      margin-bottom: 10px;
+    }
+    
+    .progress-container, 
+    .time-container {
+      margin-bottom: 10px;
+    }
+    
+    .playlist {
+      grid-column: 1 / 3;
+      grid-row: 3;
+      max-height: 140px;
+    }
+    
+    .controls {
+      margin-bottom: 15px;
+      justify-content: flex-start;
+    }
+  }
+  
+  /* Fix for devices with bottom navigation bars */
+  @supports (padding-bottom: constant(safe-area-inset-bottom)) or (padding-bottom: env(safe-area-inset-bottom)) {
+    .footer {
+      padding-bottom: calc(20px + constant(safe-area-inset-bottom, 0px));
+      padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+  
+  /* Improved animations and effects */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+  
+  .playing .album-cover {
+    animation: pulse 2s infinite ease-in-out;
+  }
+  
+  /* Add a new class to wrap song info and controls in landscape mode */
+  .player-controls-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Add fade in/out animation for elements */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Apply animations to key elements */
+  .song-info, .controls, .progress-container, .playlist {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  /* Stagger animations */
+  .song-info { animation-delay: 0.1s; }
+  .controls { animation-delay: 0.2s; }
+  .progress-container { animation-delay: 0.3s; }
+  .playlist { animation-delay: 0.4s; }

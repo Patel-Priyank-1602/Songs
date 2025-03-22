@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Music Collection</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-content">
+            <img src="image/Priyank.jpg" alt="Priyank Patel" class="profile-photo">
+            <h2 class="header-name">Priyank Patel</h2>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <h1>My Music Collection</h1>
+        
+        <div class="album-cover" id="album-cover">
+            <div id="album-placeholder" style="font-size: 3rem; color: #888;">🎵</div>
+        </div>
+        
+        <div class="song-info">
+            <div class="song-title" id="song-title">Select a song</div>
+            <div class="artist-name" id="artist-name">Priyank Patel</div>
+        </div>
+        
+        <div class="controls">
+            <button class="control-button" id="prev-button" aria-label="Previous Song"><i class="fas fa-backward"></i></button>
+            <button class="control-button play-pause" id="play-pause-button" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
+            <button class="control-button" id="next-button" aria-label="Next Song"><i class="fas fa-forward"></i></button>
+        </div>
+        
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="time-container">
+            <span id="current-time">0:00</span>
+            <span id="duration">0:00</span>
+        </div>
+        
+        <div class="playlist">
+            <div class="playlist-title">My Songs</div>
+            <div id="playlist-container">
+                <!-- Playlist items will be added here by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-contact">
+                <h3>Contact</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +91 9512771016</li>
+                    <li><i class="fas fa-envelope"></i> patelpriyank2526@gmail.com</li>
+                </ul>
+            </div>
+            <p>© 2025 Priyank Patel. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

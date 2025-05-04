@@ -25,31 +25,42 @@ const songs = [
         image: "image/Chudi Jo Khanki.jpg",
         file: "Chudi Jo Khanki.mp3"
     },
+    {
+        title: "Line Without a Hook - (Reel)",
+        artist: "Me",
+        image: "image/Line Without a Hook.jpeg",
+        file: "Line Without a Hook.mp3"
+    },
     { 
         title: "Main Koi Aisa Geet Gaoon", 
         artist: "Me", 
         image: "image/Main Koi Aisa Geet Gaoon.jpg", 
-        file: "Main Koi Aisa Geet Gaoon.mp3" },
+        file: "Main Koi Aisa Geet Gaoon.mp3" 
+    },
     { 
         title: "Bulleya", 
         artist: "Me", 
         image: "image/Bulleya.jpeg", 
-        file: "Bulleya.mp3" },
+        file: "Bulleya.mp3" 
+    },
     { 
         title: "Husn", 
         artist: "Me", 
         image: "image/Husn.jpeg", 
-        file: "Husn.mp3" },
+        file: "Husn.mp3" 
+    },
     { 
         title: "Kisi Ki Muskurahaton", 
         artist: "Me", 
         image: "image/Kisi Ki Muskurahaton.jpeg", 
-        file: "Kisi Ki Muskurahaton.mp3" },
+        file: "Kisi Ki Muskurahaton.mp3" 
+    },
     { 
         title: "Die With a Smile", 
         artist: "Me", 
         image: "image/Die With a Smile.jpeg", 
-        file: "Die With a Smile.mp3" }
+        file: "Die With a Smile.mp3" 
+    }
 ];
 
 // Event Listeners

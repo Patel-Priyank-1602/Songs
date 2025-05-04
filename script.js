@@ -36,7 +36,6 @@ let filteredSongs = [];
 let playHistory = [];
 let volume = 0.7; // Default volume (70%)
 let currentLanguage = 'all'; // Default to show all songs
-let userLikes = new Set(); // Track songs liked by the user
 
 // Your song collection with real file paths and language info
 const songs = [
@@ -45,93 +44,55 @@ const songs = [
         artist: "Me",
         image: "image/Chudi Jo Khanki.jpg",
         file: "Chudi Jo Khanki.mp3",
-        language: "hindi",
-        likes: 0
+        language: "hindi"
     },
     {
         title: "Line Without a Hook - (Reel)",
         artist: "Me",
         image: "image/Line Without a Hook.jpeg",
         file: "Line Without a Hook.mp3",
-        language: "english",
-        likes: 0
+        language: "english"
     },
     { 
         title: "Main Koi Aisa Geet Gaoon", 
         artist: "Me", 
         image: "image/Main Koi Aisa Geet Gaoon.jpg", 
         file: "Main Koi Aisa Geet Gaoon.mp3",
-        language: "hindi",
-        likes: 0
+        language: "hindi"
     },
     { 
         title: "Bulleya", 
         artist: "Me", 
         image: "image/Bulleya.jpeg", 
         file: "Bulleya.mp3",
-        language: "hindi",
-        likes: 0
+        language: "hindi"
     },
     { 
         title: "Husn", 
         artist: "Me", 
         image: "image/Husn.jpeg", 
         file: "Husn.mp3",
-        language: "hindi",
-        likes: 0
+        language: "hindi"
     },
     { 
         title: "Kisi Ki Muskurahaton", 
         artist: "Me", 
         image: "image/Kisi Ki Muskurahaton.jpeg", 
         file: "Kisi Ki Muskurahaton.mp3",
-        language: "hindi",
-        likes: 0
+        language: "hindi"
     },
     { 
         title: "Die With a Smile", 
         artist: "Me", 
         image: "image/Die With a Smile.jpeg", 
         file: "Die With a Smile.mp3",
-        language: "english",
-        likes: 0
+        language: "english"
     }
 ];
-
-// Load likes from localStorage
-function loadLikes() {
-    const savedLikes = localStorage.getItem('songLikes');
-    if (savedLikes) {
-        const likesData = JSON.parse(savedLikes);
-        songs.forEach(song => {
-            const songData = likesData.find(s => s.title === song.title && s.artist === song.artist);
-            if (songData) {
-                song.likes = songData.likes;
-            }
-        });
-    }
-
-    const savedUserLikes = localStorage.getItem('userLikes');
-    if (savedUserLikes) {
-        userLikes = new Set(JSON.parse(savedUserLikes));
-    }
-}
-
-// Save likes to localStorage
-function saveLikes() {
-    const likesData = songs.map(song => ({
-        title: song.title,
-        artist: song.artist,
-        likes: song.likes
-    }));
-    localStorage.setItem('songLikes', JSON.stringify(likesData));
-    localStorage.setItem('userLikes', JSON.stringify([...userLikes]));
-}
 
 // Initialize
 originalSongs = [...songs];
 filteredSongs = [...songs];
-loadLikes();
 
 // Event Listeners
 playPauseButton.addEventListener('click', togglePlayPause);
@@ -188,7 +149,6 @@ function initializePlaylist() {
         playlistItem.classList.add('playlist-item');
         playlistItem.dataset.index = index;
 
-        const isLiked = userLikes.has(`${song.title}-${song.artist}`);
         playlistItem.innerHTML = `
             <div class="playlist-item-number">${index + 1}</div>
             <div class="playlist-item-info">
@@ -196,48 +156,17 @@ function initializePlaylist() {
                 <div class="playlist-item-artist">${song.artist}</div>
             </div>
             <div class="playlist-item-duration" id="duration-${index}">-:--</div>
-            <div class="playlist-item-like">
-                <button class="like-button ${isLiked ? 'liked' : ''}" data-title="${song.title}" data-artist="${song.artist}">
-                    <i class="fas fa-heart"></i>
-                </button>
-                <span class="like-count">${song.likes}</span>
-            </div>
         `;
 
-        playlistItem.addEventListener('click', (e) => {
-            if (!e.target.closest('.like-button')) {
-                console.log(`Clicked song: ${song.title}, isPlaying: ${isPlaying}`);
-                currentSongIndex = index;
-                loadSong(currentSongIndex, isPlaying); // Pass isPlaying to loadSong
-            }
+        playlistItem.addEventListener('click', () => {
+            console.log(`Clicked song: ${song.title}, isPlaying: ${isPlaying}`);
+            currentSongIndex = index;
+            loadSong(currentSongIndex, isPlaying); // Pass isPlaying to loadSong
         });
-
-        const likeButton = playlistItem.querySelector('.like-button');
-        likeButton.addEventListener('click', () => toggleLike(song, likeButton, index));
 
         playlistContainer.appendChild(playlistItem);
         loadSongDuration(index);
     });
-}
-
-// Toggle like for a song
-function toggleLike(song, button, index) {
-    const songId = `${song.title}-${song.artist}`;
-    if (userLikes.has(songId)) {
-        song.likes = Math.max(0, song.likes - 1);
-        userLikes.delete(songId);
-        button.classList.remove('liked');
-    } else {
-        song.likes += 1;
-        userLikes.add(songId);
-        button.classList.add('liked');
-    }
-
-    const likeCount = button.parentElement.querySelector('.like-count');
-    likeCount.textContent = song.likes;
-
-    saveLikes();
-    initializePlaylist(); // Refresh playlist to update all like counts
 }
 
 // Load durations for each song
@@ -371,7 +300,7 @@ function pauseSong() {
 }
 
 function playPreviousSong() {
-    if (playHistory-varying && audio.currentTime < 3) {
+    if (playHistory.length > 0 && audio.currentTime < 3) {
         currentSongIndex = playHistory.pop();
     } else {
         if (audio.currentTime >= 3) {

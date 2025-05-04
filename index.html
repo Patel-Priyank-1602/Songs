@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Music Collection</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="shortcut icon" href="image/fav.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -14,6 +14,9 @@
         <div class="header-content">
             <img src="image/Priyank.jpg" alt="Priyank Patel" class="profile-photo">
             <h2 class="header-name">Priyank Patel</h2>
+            <div class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
         </div>
     </header>
 
@@ -23,6 +26,13 @@
         
         <div class="album-cover" id="album-cover">
             <div id="album-placeholder" style="font-size: 3rem; color: #888;">🎵</div>
+            <div class="album-overlay">
+                <div class="album-controls">
+                    <button class="album-control-button" id="album-play-button" aria-label="Play from album">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+            </div>
         </div>
         
         <div class="song-info">
@@ -31,26 +41,62 @@
         </div>
         
         <div class="controls">
+            <button class="control-button" id="shuffle-button" aria-label="Shuffle"><i class="fas fa-random"></i></button>
             <button class="control-button" id="prev-button" aria-label="Previous Song"><i class="fas fa-backward"></i></button>
             <button class="control-button play-pause" id="play-pause-button" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
             <button class="control-button" id="next-button" aria-label="Next Song"><i class="fas fa-forward"></i></button>
+            <button class="control-button" id="repeat-button" aria-label="Repeat"><i class="fas fa-repeat"></i></button>
         </div>
         
         <div class="progress-container" id="progress-container">
             <div class="progress-bar" id="progress-bar"></div>
+            <div class="progress-hover-time" id="progress-hover-time">0:00</div>
         </div>
         
         <div class="time-container">
             <span id="current-time">0:00</span>
             <span id="duration">0:00</span>
         </div>
+
+        <!-- Improved Volume Control -->
+        <div class="volume-control-wrapper">
+            <div class="volume-icon" id="volume-icon"><i class="fas fa-volume-up"></i></div>
+            <div class="volume-control">
+                <div class="volume-slider" id="volume-slider">
+                    <div class="volume-progress" id="volume-progress"></div>
+                    <div class="volume-knob" id="volume-knob"></div>
+                </div>
+                <div class="volume-percentage" id="volume-percentage">70%</div>
+            </div>
+        </div>
         
-        <div class="playlist">
+        <div class="playlist-header">
             <div class="playlist-title">My Songs</div>
+            <div class="playlist-search">
+                <input type="text" id="search-input" placeholder="Search songs...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+
+        <!-- Language Tabs -->
+        <div class="language-tabs">
+            <button class="language-tab active" data-language="all">All Songs</button>
+            <button class="language-tab" data-language="hindi">Hindi</button>
+            <button class="language-tab" data-language="english">English</button>
+        </div>
+
+        <div class="playlist">
             <div id="playlist-container">
                 <!-- Playlist items will be added here by JavaScript -->
             </div>
         </div>
+
+        <!-- <div class="now-playing-indicator" id="now-playing-indicator">
+            <div class="now-playing-text">Now Playing</div>
+            <div class="now-playing-bars">
+                <span></span><span></span><span></span><span></span>
+            </div>
+        </div> -->
     </main>
 
     <!-- Footer Section -->

@@ -1,4 +1,3 @@
-// DOM Elements
 const playPauseButton = document.getElementById('play-pause-button');
 const prevButton = document.getElementById('prev-button');
 const nextButton = document.getElementById('next-button');

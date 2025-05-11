@@ -36,17 +36,6 @@ let playHistory = [];
 let volume = 0.7; // Default volume (70%)
 let currentLanguage = 'all'; // Default to show all songs
 
-// Generate or retrieve a unique user ID for tracking likes
-let userId = localStorage.getItem('userId');
-if (!userId) {
-    userId = 'user_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
-    try {
-        localStorage.setItem('userId', userId);
-    } catch (e) {
-        console.warn('localStorage is disabled or unavailable:', e);
-    }
-}
-
 // Your song collection with real file paths and language info
 const songs = [
     {
@@ -126,7 +115,6 @@ albumCoverElement.addEventListener('click', (e) => {
 // Volume control
 volumeSlider.addEventListener('click', setVolume);
 volumeSlider.addEventListener('mousemove', handleVolumeSliderHover);
-volumeSlider.addEventListener('touchmove', handleVolumeSliderTouch);
 volumeIcon.addEventListener('click', toggleMute);
 
 // Search functionality
@@ -160,21 +148,6 @@ function initializePlaylist() {
         playlistItem.classList.add('playlist-item');
         playlistItem.dataset.index = index;
 
-        // Get like count from localStorage
-        let likeCount = 0;
-        try {
-            likeCount = parseInt(localStorage.getItem(`like_${song.title}`) || '0');
-        } catch (e) {
-            console.warn('Error accessing localStorage for like count:', e);
-        }
-        // Check if the current user has liked this song
-        let isLiked = false;
-        try {
-            isLiked = localStorage.getItem(`liked_${song.title}_${userId}`) === 'true';
-        } catch (e) {
-            console.warn('Error accessing localStorage for like status:', e);
-        }
-
         playlistItem.innerHTML = `
             <div class="playlist-item-number">${index + 1}</div>
             <div class="playlist-item-info">
@@ -182,52 +155,12 @@ function initializePlaylist() {
                 <div class="playlist-item-artist">${song.artist}</div>
             </div>
             <div class="playlist-item-duration" id="duration-${index}">-:--</div>
-            <div class="playlist-item-like">
-                <button class="like-button ${isLiked ? 'liked' : ''}" data-song="${song.title}">
-                    <i class="fas fa-heart"></i>
-                </button>
-                <span class="like-count">${likeCount}</span>
-            </div>
         `;
 
-        playlistItem.addEventListener('click', (e) => {
-            if (!e.target.classList.contains('like-button') && !e.target.closest('.like-button')) {
-                currentSongIndex = index;
-                loadSong(currentSongIndex, true); // Always play on click
-            }
-        });
-
-        // Add like button event listener
-        const likeButton = playlistItem.querySelector('.like-button');
-        likeButton.addEventListener('click', () => {
-            let isCurrentlyLiked = false;
-            let count = 0;
-            try {
-                isCurrentlyLiked = localStorage.getItem(`liked_${song.title}_${userId}`) === 'true';
-                count = parseInt(localStorage.getItem(`like_${song.title}`) || '0');
-            } catch (e) {
-                console.warn('Error accessing localStorage:', e);
-                return;
-            }
-
-            try {
-                if (!isCurrentlyLiked) {
-                    // User likes the song
-                    count += 1;
-                    localStorage.setItem(`liked_${song.title}_${userId}`, 'true');
-                    likeButton.classList.add('liked');
-                } else {
-                    // User unlikes the song
-                    count = Math.max(0, count - 1); // Prevent negative counts
-                    localStorage.setItem(`liked_${song.title}_${userId}`, 'false');
-                    likeButton.classList.remove('liked');
-                }
-                localStorage.setItem(`like_${song.title}`, count);
-                likeButton.nextElementSibling.textContent = count;
-            } catch (e) {
-                console.warn('Error updating localStorage:', e);
-                alert('Unable to save like status. Local storage may be disabled.');
-            }
+        playlistItem.addEventListener('click', () => {
+            console.log(`Clicked song: ${song.title}, isPlaying: ${isPlaying}`);
+            currentSongIndex = index;
+            loadSong(currentSongIndex, isPlaying); // Pass isPlaying to loadSong
         });
 
         playlistContainer.appendChild(playlistItem);
@@ -259,6 +192,7 @@ function loadSongDuration(index) {
 // Load a song
 function loadSong(index, shouldPlay = false) {
     const song = filteredSongs[index];
+    console.log(`Loading song: ${song.title}, shouldPlay: ${shouldPlay}`);
 
     // Set the actual audio source
     audio.src = song.file;
@@ -336,6 +270,7 @@ function togglePlayPause() {
 }
 
 function playSong() {
+    console.log(`Attempting to play song: ${songTitleElement.textContent}, audio.readyState: ${audio.readyState}`);
     isPlaying = true;
     playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
     albumPlayButton.innerHTML = '<i class="fas fa-pause"></i>';
@@ -458,7 +393,7 @@ function formatTime(seconds) {
 function setVolume(e) {
     const rect = volumeSlider.getBoundingClientRect();
     const width = rect.width;
-    const clickX = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+    const clickX = e.clientX - rect.left;
     volume = clickX / width;
 
     volume = Math.max(0, Math.min(1, volume));
@@ -471,11 +406,6 @@ function handleVolumeSliderHover(e) {
     if (e.buttons === 1) {
         setVolume(e);
     }
-}
-
-function handleVolumeSliderTouch(e) {
-    e.preventDefault();
-    setVolume(e);
 }
 
 function toggleMute() {
@@ -582,16 +512,12 @@ function filterByLanguage(language) {
 function toggleTheme() {
     document.body.classList.toggle('light-theme');
 
-    try {
-        if (document.body.classList.contains('light-theme')) {
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            localStorage.setItem('theme', 'light');
-        } else {
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            localStorage.setItem('theme', 'dark');
-        }
-    } catch (e) {
-        console.warn('Error saving theme to localStorage:', e);
+    if (document.body.classList.contains('light-theme')) {
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem('theme', 'light');
+    } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem('theme', 'dark');
     }
 }
 
@@ -608,17 +534,13 @@ function hideNowPlayingIndicator() {
 }
 
 function loadThemePreference() {
-    try {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-theme');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        } else {
-            document.body.classList.remove('light-theme');
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        }
-    } catch (e) {
-        console.warn('Error loading theme from localStorage:', e);
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     }
 }
 

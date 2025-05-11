@@ -61,7 +61,7 @@ body {
   flex-direction: column;
   line-height: 1.6;
   overflow-x: hidden;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); /* Handle notched displays */
+  padding: env(safe-area-inset-top) en(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); /* Handle notched displays */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -668,7 +668,7 @@ h1::after {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.3Sys ease;
+  transition: color 0.3s ease;
 }
 
 .playlist-item-duration {
@@ -830,7 +830,6 @@ h1::after {
   transition: color 0.3s ease;
 }
 
-
 /* Contact Item Styles */
 .contact-item {
   display: flex;
@@ -840,10 +839,6 @@ h1::after {
   margin: 8px 0;
   transition: transform 0.3s ease;
 }
-
-/* .contact-item:hover {
-  transform: translateX(5px);
-} */
 
 /* Contact Link */
 .contact-link {

@@ -26,7 +26,6 @@ const themeToggle = document.getElementById("theme-toggle");
 const nowPlayingIndicator = document.getElementById("now-playing-indicator");
 const languageTabs = document.querySelectorAll(".language-tab");
 const loadingSpinner = document.getElementById("loading-spinner");
-const toastContainer = document.getElementById("toast-container");
 const mobileBottomPlayer = document.getElementById("mobile-bottom-player");
 const mobileAlbumImage = document.getElementById("mobile-album-image");
 const mobileSongTitle = document.getElementById("mobile-song-title");
@@ -208,12 +207,10 @@ function playSong() {
         showNowPlaying();
         showMobilePlayer();
         hideLoading();
-        showToast(`Playing: ${filteredSongs[currentSongIndex].title}`, "success");
     }).catch((error) => {
         console.error("Error playing audio:", error);
         handleAudioError();
         hideLoading();
-        showToast("Error playing audio", "error");
     });
 }
 
@@ -222,7 +219,6 @@ function pauseSong() {
     isPlaying = false;
     updatePlayButtons();
     hideNowPlaying();
-    showToast("Paused", "info");
 }
 
 function playPrevious() {
@@ -286,7 +282,6 @@ function loadSong(index, shouldPlay = false) {
         isPlaying = false;
         updatePlayButtons();
         hideLoading();
-        showToast(`Cannot load audio file: ${song.file}`, "error");
     }, { once: true });
     showNowPlaying();
 }
@@ -301,13 +296,11 @@ function updatePlayButtons() {
 function toggleShuffle() {
     isShuffle = !isShuffle;
     shuffleBtn.classList.toggle("active", isShuffle);
-    showToast(isShuffle ? "Shuffle enabled" : "Shuffle disabled", "info");
 }
 
 function toggleRepeat() {
     isRepeat = !isRepeat;
     repeatBtn.classList.toggle("active", isRepeat);
-    showToast(isRepeat ? "Repeat enabled" : "Repeat disabled", "info");
 }
 
 function shuffleAndPlay() {
@@ -383,7 +376,6 @@ function handleAudioError() {
     updatePlayButtons();
     hideNowPlaying();
     hideLoading();
-    showToast("Failed to load audio file", "error");
 }
 
 function handleProgressTouchStart(e) {
@@ -449,7 +441,6 @@ function toggleMute() {
     audio.volume = isMuted ? 0 : volume;
     updateVolumeUI();
     updateVolumeIcon();
-    showToast(isMuted ? "Muted" : "Unmuted", "info");
 }
 
 function updateVolumeUI() {
@@ -608,7 +599,6 @@ function toggleTheme() {
     const isLight = document.body.classList.contains("light-theme");
     themeToggle.innerHTML = `<i class="fas fa-${isLight ? "sun" : "moon"}"></i>`;
     localStorage.setItem("theme", isLight ? "light" : "dark");
-    showToast(`${isLight ? "Light" : "Dark"} theme enabled`, "info");
 }
 
 function loadTheme() {
@@ -627,18 +617,6 @@ function showLoading() {
 function hideLoading() {
     isLoading = false;
     loadingSpinner.classList.remove("active");
-}
-
-function showToast(message, type = "info") {
-    const toast = document.createElement("div");
-    toast.className = `toast ${type}`;
-    toast.textContent = message;
-    toastContainer.appendChild(toast);
-    setTimeout(() => toast.classList.add("show"), 100);
-    setTimeout(() => {
-        toast.classList.remove("show");
-        setTimeout(() => toast.parentNode?.removeChild(toast), 300);
-    }, 3000);
 }
 
 function showNowPlaying() {

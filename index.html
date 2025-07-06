@@ -2,121 +2,209 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Music Collection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Music Player - Priyank Patel</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="image/fav.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
-    <!-- Header Section -->
+<body class="dark-theme">
+    <!-- Mobile Header -->
     <header class="header">
         <div class="header-content">
-            <img src="image/Priyank.jpg" alt="Priyank Patel" class="profile-photo">
-            <h2 class="header-name">Priyank Patel</h2>
-            <div class="theme-toggle" id="theme-toggle">
-                <i class="fas fa-moon"></i>
+            <div class="header-left">
+                <img src="image/Priyank.jpg" alt="Priyank Patel" class="profile-photo">
+                <div class="header-info">
+                    <h1 class="header-title">Priyank Patel</h1>
+                    <p class="header-subtitle">Music Collection</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="container">
-        <h1>My Music Collection</h1>
-        
-        <div class="album-cover" id="album-cover">
-            <div id="album-placeholder" style="font-size: 3rem; color: #888;">🎵</div>
-            <div class="album-overlay">
-                <div class="album-controls">
-                    <button class="album-control-button" id="album-play-button" aria-label="Play from album">
+    <main class="main-container">
+        <div class="player-layout">
+            <!-- Left Panel - Main Player -->
+            <div class="left-panel" id="player-section">
+                <!-- Album Cover -->
+                <div class="album-cover-container">
+                    <div class="album-cover" id="album-cover">
+                        <img id="album-image" src="/placeholder.svg?height=320&width=320" alt="Album Cover">
+                        <div class="album-overlay">
+                            <button class="album-play-btn" id="album-play-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Song Info -->
+                <div class="song-info">
+                    <h2 class="song-title" id="song-title">Select a song</h2>
+                    <p class="artist-name" id="artist-name">Priyank Patel</p>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-section">
+                    <div class="progress-container" id="progress-container">
+                        <div class="progress-bar" id="progress-bar"></div>
+                        <div class="progress-hover-time" id="progress-hover-time">0:00</div>
+                        <div class="progress-thumb" id="progress-thumb"></div>
+                    </div>
+                    <div class="time-container">
+                        <span id="current-time">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="controls">
+                    <button class="control-btn secondary" id="shuffle-btn" title="Shuffle">
+                        <i class="fas fa-random"></i>
+                    </button>
+                    <button class="control-btn" id="prev-btn" title="Previous">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    <button class="control-btn play-pause-btn" id="play-pause-btn" title="Play/Pause">
                         <i class="fas fa-play"></i>
+                    </button>
+                    <button class="control-btn" id="next-btn" title="Next">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                    <button class="control-btn secondary" id="repeat-btn" title="Repeat">
+                        <i class="fas fa-repeat"></i>
+                    </button>
+                </div>
+
+                <!-- Volume Control -->
+                <div class="volume-control">
+                    <button class="volume-icon" id="volume-icon">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <div class="volume-slider" id="volume-slider">
+                        <div class="volume-progress" id="volume-progress"></div>
+                        <div class="volume-thumb" id="volume-thumb"></div>
+                    </div>
+                    <span class="volume-percentage" id="volume-percentage">70%</span>
+                </div>
+            </div>
+
+            <!-- Right Panel - Playlist -->
+            <div class="right-panel" id="playlist-section">
+                <!-- Playlist Header -->
+                <div class="playlist-header">
+                    <h3 class="playlist-title">My Music Collection</h3>
+                    
+                    <!-- Search -->
+                    <div class="search-container" id="search-section">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="search-input" placeholder="Search songs..." class="search-input">
+                        <button class="search-clear" id="search-clear">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Language Tabs -->
+                    <div class="language-tabs">
+                        <button class="language-tab active" data-language="all">All</button>
+                        <button class="language-tab" data-language="hindi">Hindi</button>
+                        <button class="language-tab" data-language="english">English</button>
+                    </div>
+                </div>
+
+                <!-- Song List -->
+                <div class="playlist-container" id="playlist-container">
+                    <!-- Songs will be populated by JavaScript -->
+                </div>
+
+                <!-- Mobile Playlist Actions -->
+                <div class="mobile-playlist-actions">
+                    <button class="mobile-action-btn" id="shuffle-all-btn">
+                        <i class="fas fa-random"></i>
+                        <span>Shuffle All</span>
+                    </button>
+                    <button class="mobile-action-btn" id="play-all-btn">
+                        <i class="fas fa-play"></i>
+                        <span>Play All</span>
                     </button>
                 </div>
             </div>
         </div>
-        
-        <div class="song-info">
-            <div class="song-title" id="song-title">Select a song</div>
-            <div class="artist-name" id="artist-name">Priyank Patel</div>
-        </div>
-        
-        <div class="controls">
-            <button class="control-button" id="shuffle-button" aria-label="Shuffle"><i class="fas fa-random"></i></button>
-            <button class="control-button" id="prev-button" aria-label="Previous Song"><i class="fas fa-backward"></i></button>
-            <button class="control-button play-pause" id="play-pause-button" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
-            <button class="control-button" id="next-button" aria-label="Next Song"><i class="fas fa-forward"></i></button>
-            <button class="control-button" id="repeat-button" aria-label="Repeat"><i class="fas fa-repeat"></i></button>
-        </div>
-        
-        <div class="progress-container" id="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-            <div class="progress-hover-time" id="progress-hover-time">0:00</div>
-        </div>
-        
-        <div class="time-container">
-            <span id="current-time">0:00</span>
-            <span id="duration">0:00</span>
-        </div>
-
-        <!-- Improved Volume Control -->
-        <div class="volume-control-wrapper">
-            <div class="volume-icon" id="volume-icon"><i class="fas fa-volume-up"></i></div>
-            <div class="volume-control">
-                <div class="volume-slider" id="volume-slider">
-                    <div class="volume-progress" id="volume-progress"></div>
-                    <div class="volume-knob" id="volume-knob"></div>
-                </div>
-                <div class="volume-percentage" id="volume-percentage">70%</div>
-            </div>
-        </div>
-        
-        <div class="playlist-header">
-            <div class="playlist-title">My Songs</div>
-            <div class="playlist-search">
-                <input type="text" id="search-input" placeholder="Search songs...">
-                <i class="fas fa-search"></i>
-            </div>
-        </div>
-
-        <!-- Language Tabs -->
-        <div class="language-tabs">
-            <button class="language-tab active" data-language="all">All Songs</button>
-            <button class="language-tab" data-language="hindi">Hindi</button>
-            <button class="language-tab" data-language="english">English</button>
-        </div>
-
-        <div class="playlist">
-            <div id="playlist-container">
-                <!-- Playlist items will be added here by JavaScript -->
-            </div>
-        </div>
     </main>
 
-    <!-- Footer Section -->
+    <!-- Mobile Bottom Player -->
+    <div class="mobile-bottom-player" id="mobile-bottom-player">
+        <div class="mobile-player-progress" id="mobile-player-progress">
+            <div class="mobile-progress-bar" id="mobile-progress-bar"></div>
+        </div>
+        <div class="mobile-player-content">
+            <div class="mobile-player-info">
+                <img id="mobile-album-image" src="/placeholder.svg?height=50&width=50" alt="Album" class="mobile-album-thumb">
+                <div class="mobile-song-details">
+                    <div class="mobile-song-title" id="mobile-song-title">Select a song</div>
+                    <div class="mobile-artist-name" id="mobile-artist-name">Priyank Patel</div>
+                </div>
+            </div>
+            <div class="mobile-player-controls">
+                <button class="mobile-control-btn" id="mobile-prev-btn">
+                    <i class="fas fa-backward"></i>
+                </button>
+                <button class="mobile-control-btn primary" id="mobile-play-pause-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="mobile-control-btn" id="mobile-next-btn">
+                    <i class="fas fa-forward"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-contact">
-                <h3>Contact</h3>
-                <ul>
-                    <li class="contact-item">
-                        <a href="tel:+919512771016" class="contact-link" aria-label="Call Priyank Patel">
-                            <i class="fas fa-phone contact-icon"></i>
-                            <span class="contact-text">+91 9512771016</span>
-                        </a>
-                    </li>
-                    <li class="contact-item">
-                        <a href="mailto:patelpriyank2526@gmail.com" class="contact-link" aria-label="Email Priyank Patel">
-                            <i class="fas fa-envelope contact-icon"></i>
-                            <span class="contact-text">patelpriyank2526@gmail.com</span>
-                        </a>
-                    </li>
-                </ul>
+            <div class="contact-links">
+                <a href="tel:+919512771016" class="contact-link">
+                    <i class="fas fa-phone"></i>
+                    <span>+91 9512771016</span>
+                </a>
+                <a href="mailto:patelpriyank2526@gmail.com" class="contact-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>patelpriyank2526@gmail.com</span>
+                </a>
             </div>
-            <p>© 2025 Priyank Patel. All rights reserved.</p>
+            <p class="copyright">© 2025 Priyank Patel. All rights reserved.</p>
         </div>
     </footer>
-    
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+    <!-- Audio Element -->
+    <audio id="audio" preload="metadata"></audio>
+
+    <!-- Now Playing Indicator -->
+    <div class="now-playing-indicator" id="now-playing-indicator">
+        <div class="now-playing-text">Now Playing</div>
+        <div class="now-playing-bars">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
     <script src="script.js"></script>
 </body>
 </html>

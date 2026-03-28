@@ -73,6 +73,13 @@ const songs = [
         language: "hindi",
     },
     {
+        title: "Pal Pal Dil Ke Paas",
+        artist: "Priyank Patel",
+        image: "image/Pal Pal Dil Ke Paas.jpg?height=300&width=300",
+        file: "Pal Pal Dil Ke Paas.mp3",
+        language: "hindi",
+    },
+    {
         title: "Bulleya",
         artist: "Priyank Patel",
         image: "image/Bulleya.jpeg?height=300&width=300",

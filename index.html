@@ -2,209 +2,815 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Music Player - Priyank Patel</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MyTunes - Priyank Patel Vocals</title>
     <link rel="shortcut icon" href="image/fav.png" type="image/png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="dark-theme">
-    <!-- Mobile Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="header-left">
-                <img src="image/Priyank.jpg" alt="Priyank Patel" class="profile-photo">
-                <div class="header-info">
-                    <h1 class="header-title">Priyank Patel</h1>
-                    <p class="header-subtitle">Music Collection</p>
+    <!-- App Container -->
+    <div class="app-container" id="app-container">
+        
+        <!-- ================= LEFT SIDEBAR ================= -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Brand Logo -->
+            <div class="sidebar-brand" id="brand-logo-trigger" title="MyTunes Home">
+                <div class="brand-logo-icon">
+                    <span class="bar bar-1"></span>
+                    <span class="bar bar-2"></span>
+                    <span class="bar bar-3"></span>
+                    <span class="bar bar-4"></span>
+                    <span class="bar bar-5"></span>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">MyTunes</span>
+                    <span class="brand-badge">Singer's Vault</span>
                 </div>
             </div>
-            <div class="header-actions">
-                <button class="theme-toggle" id="theme-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
-        </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="main-container">
-        <div class="player-layout">
-            <!-- Left Panel - Main Player -->
-            <div class="left-panel" id="player-section">
-                <!-- Album Cover -->
-                <div class="album-cover-container">
-                    <div class="album-cover" id="album-cover">
-                        <img id="album-image" src="/placeholder.svg?height=320&width=320" alt="Album Cover">
-                        <div class="album-overlay">
-                            <button class="album-play-btn" id="album-play-btn">
-                                <i class="fas fa-play"></i>
-                            </button>
+            <!-- Primary Nav -->
+            <nav class="sidebar-nav">
+                <button class="nav-item active" id="nav-home" data-view="home">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-item" id="nav-search" data-view="search">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
+                <button class="nav-item" id="nav-library" data-view="library">
+                    <i class="fas fa-bars-staggered"></i>
+                    <span>Your Library</span>
+                </button>
+            </nav>
+
+            <!-- Playlists Section -->
+            <div class="sidebar-section">
+                <div class="section-header">
+                    <span class="section-title">Playlists</span>
+                    <button class="add-playlist-btn" id="add-playlist-btn" title="Create Playlist">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+
+                <div class="playlists-list" id="playlists-list">
+                    <!-- Liked Songs Playlist -->
+                    <div class="playlist-item" data-playlist="liked" id="playlist-liked">
+                        <div class="playlist-thumb heart-thumb">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="playlist-info">
+                            <div class="playlist-name">Liked Songs</div>
+                            <div class="playlist-meta" id="liked-songs-count">0 songs</div>
+                        </div>
+                    </div>
+
+                    <!-- Chill Vibes Playlist -->
+                    <div class="playlist-item active-playlist" data-playlist="chill" id="playlist-chill">
+                        <div class="playlist-thumb">
+                            <img src="image/Pal Pal Dil Ke Paas.jpg" alt="Chill Vibes">
+                        </div>
+                        <div class="playlist-info">
+                            <div class="playlist-name">Chill Vibes</div>
+                            <div class="playlist-meta">8 songs</div>
+                        </div>
+                    </div>
+
+                    <!-- Hindi Romantics Playlist -->
+                    <div class="playlist-item" data-playlist="hindi" id="playlist-hindi">
+                        <div class="playlist-thumb">
+                            <img src="image/Chudi Jo Khanki.jpg" alt="Hindi Romantics">
+                        </div>
+                        <div class="playlist-info">
+                            <div class="playlist-name">Hindi Romantics</div>
+                            <div class="playlist-meta">6 songs</div>
+                        </div>
+                    </div>
+
+                    <!-- Acoustic & Indie Hits -->
+                    <div class="playlist-item" data-playlist="acoustic" id="playlist-acoustic">
+                        <div class="playlist-thumb">
+                            <img src="image/Husn.jpeg" alt="Acoustic Hits">
+                        </div>
+                        <div class="playlist-info">
+                            <div class="playlist-name">Acoustic Hits</div>
+                            <div class="playlist-meta">4 songs</div>
+                        </div>
+                    </div>
+
+                    <!-- English Ballads -->
+                    <div class="playlist-item" data-playlist="english" id="playlist-english">
+                        <div class="playlist-thumb">
+                            <img src="image/Die With a Smile.jpeg" alt="English Ballads">
+                        </div>
+                        <div class="playlist-info">
+                            <div class="playlist-name">English Ballads</div>
+                            <div class="playlist-meta">2 songs</div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Song Info -->
-                <div class="song-info">
-                    <h2 class="song-title" id="song-title">Select a song</h2>
-                    <p class="artist-name" id="artist-name">Priyank Patel</p>
-                </div>
-
-                <!-- Progress Bar -->
-                <div class="progress-section">
-                    <div class="progress-container" id="progress-container">
-                        <div class="progress-bar" id="progress-bar"></div>
-                        <div class="progress-hover-time" id="progress-hover-time">0:00</div>
-                        <div class="progress-thumb" id="progress-thumb"></div>
-                    </div>
-                    <div class="time-container">
-                        <span id="current-time">0:00</span>
-                        <span id="duration">0:00</span>
-                    </div>
-                </div>
-
-                <!-- Controls -->
-                <div class="controls">
-                    <button class="control-btn secondary" id="shuffle-btn" title="Shuffle">
-                        <i class="fas fa-random"></i>
-                    </button>
-                    <button class="control-btn" id="prev-btn" title="Previous">
-                        <i class="fas fa-backward"></i>
-                    </button>
-                    <button class="control-btn play-pause-btn" id="play-pause-btn" title="Play/Pause">
-                        <i class="fas fa-play"></i>
-                    </button>
-                    <button class="control-btn" id="next-btn" title="Next">
-                        <i class="fas fa-forward"></i>
-                    </button>
-                    <button class="control-btn secondary" id="repeat-btn" title="Repeat">
-                        <i class="fas fa-repeat"></i>
-                    </button>
-                </div>
-
-                <!-- Volume Control -->
-                <div class="volume-control">
-                    <button class="volume-icon" id="volume-icon">
-                        <i class="fas fa-volume-up"></i>
-                    </button>
-                    <div class="volume-slider" id="volume-slider">
-                        <div class="volume-progress" id="volume-progress"></div>
-                        <div class="volume-thumb" id="volume-thumb"></div>
-                    </div>
-                    <span class="volume-percentage" id="volume-percentage">70%</span>
-                </div>
             </div>
 
-            <!-- Right Panel - Playlist -->
-            <div class="right-panel" id="playlist-section">
-                <!-- Playlist Header -->
-                <div class="playlist-header">
-                    <h3 class="playlist-title">My Music Collection</h3>
+            <!-- Singer Profile Footer in Sidebar -->
+            <div class="sidebar-user" id="sidebar-user-profile" title="Singer Profile & Contact">
+                <div class="user-avatar-wrap">
+                    <img src="image/Priyank.jpg" alt="Priyank Patel" class="user-avatar">
+                    <span class="online-dot"></span>
+                </div>
+                <div class="user-details">
+                    <span class="user-name">Priyank</span>
+                    <span class="user-role">Vocalist</span>
+                </div>
+                <button class="settings-trigger" id="settings-trigger" title="Settings & Contact">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ================= CENTER MAIN CONTENT ================= -->
+        <main class="main-content" id="main-content">
+            <!-- Top Sticky Navigation Bar -->
+            <header class="topbar">
+                <!-- Mobile Top Bar Left Logo -->
+                <div class="mobile-brand-wrap" id="mobile-brand-trigger">
+                    <div class="brand-logo-icon">
+                        <span class="bar bar-1"></span>
+                        <span class="bar bar-2"></span>
+                        <span class="bar bar-3"></span>
+                        <span class="bar bar-4"></span>
+                        <span class="bar bar-5"></span>
+                    </div>
+                    <span class="brand-title">MyTunes</span>
+                </div>
+
+                <!-- Desktop History Controls -->
+                <div class="history-controls">
+                    <button class="history-btn" id="history-back" title="Go back">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="history-btn" id="history-forward" title="Go forward">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Center Search Input -->
+                <div class="search-bar-wrap">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="global-search" class="global-search" placeholder="Search for songs, vocals, moods..." autocomplete="off">
+                    <button class="search-clear-btn" id="search-clear-btn" title="Clear search">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="topbar-icon-btn" id="notif-btn" title="Singer Updates & New Releases">
+                        <i class="fas fa-bell"></i>
+                        <span class="notif-badge"></span>
+                    </button>
+                    <div class="topbar-profile" id="topbar-profile-trigger" title="Priyank Patel">
+                        <img src="image/Priyank.jpg" alt="Priyank Patel" class="profile-avatar-circle">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Scrollable Content View -->
+            <div class="content-scroll" id="content-scroll">
+                
+                <!-- ================= 1. HOME VIEW (SCREEN 1) ================= -->
+                <div id="home-view" class="view-container">
                     
-                    <!-- Search -->
-                    <div class="search-container" id="search-section">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" id="search-input" placeholder="Search songs..." class="search-input">
-                        <button class="search-clear" id="search-clear">
-                            <i class="fas fa-times"></i>
+                    <!-- Dynamic Greeting -->
+                    <div class="mobile-greeting-wrap">
+                        <h2 class="greeting-text" id="greeting-text">Good Afternoon, Priyank <span class="wave-emoji">👋</span></h2>
+                        <span class="greeting-sub">Your personal vocal recording hub</span>
+                    </div>
+
+                    <!-- HERO FEATURED BANNER -->
+                    <section class="hero-banner" id="hero-banner">
+                        <div class="hero-silhouette">
+                            <svg viewBox="0 0 450 320" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M450 15 Q360 40 280 20 Q220 5 190 0 C220 15 250 22 300 28 Q370 35 450 40 Z" opacity="0.95"/>
+                                <path d="M380 32 Q320 85 240 100 C270 95 310 80 370 42 Z" opacity="0.9"/>
+                                <path d="M320 70 Q280 140 210 160 C235 145 270 120 305 85 Z" opacity="0.85"/>
+                                <path d="M420 38 Q360 130 330 190 C345 160 380 115 415 50 Z" opacity="0.85"/>
+                                <path d="M210 160 C195 155 180 165 190 180 C200 190 220 175 210 160 Z" opacity="0.9"/>
+                                <path d="M225 150 C210 140 205 155 215 168 C230 175 240 160 225 150 Z" opacity="0.95"/>
+                                <path d="M245 110 C230 100 215 112 228 128 C240 135 255 120 245 110 Z" opacity="0.92"/>
+                                <path d="M260 95 C240 85 235 105 250 118 C265 122 275 105 260 95 Z" opacity="0.9"/>
+                                <path d="M280 80 C265 65 250 82 268 95 C285 100 295 85 280 80 Z" opacity="0.95"/>
+                                <path d="M300 65 C285 50 275 68 290 80 C305 88 315 72 300 65 Z" opacity="0.95"/>
+                                <path d="M325 170 C310 160 300 178 315 190 C330 198 340 182 325 170 Z" opacity="0.9"/>
+                                <path d="M340 145 C320 135 315 155 330 168 C345 172 355 155 340 145 Z" opacity="0.95"/>
+                                <path d="M355 120 C335 110 330 130 345 142 C360 148 370 130 355 120 Z" opacity="0.95"/>
+                                <path d="M375 90 C355 80 350 100 365 112 C380 118 390 100 375 90 Z" opacity="0.95"/>
+                                <path d="M400 65 C380 55 375 75 390 88 C405 92 415 75 400 65 Z" opacity="0.95"/>
+                            </svg>
+                        </div>
+
+                        <div class="hero-content">
+                            <span class="hero-tag" id="hero-tag">Playlist</span>
+                            <h1 class="hero-title" id="hero-title">Chill Vibes</h1>
+                            <p class="hero-description" id="hero-desc">Relax, unwind and let the music flow.</p>
+                            <div class="hero-meta" id="hero-meta">
+                                <span class="hero-song-count">8 songs</span>
+                                <span class="meta-dot">•</span>
+                                <span class="hero-duration">22 min</span>
+                                <span class="meta-dot">•</span>
+                                <span class="hero-artist-tag"><i class="fas fa-microphone-lines"></i> Sung by Priyank Patel</span>
+                            </div>
+                            <div class="hero-actions">
+                                <button class="hero-play-btn" id="hero-play-btn" title="Play Collection">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button class="hero-action-btn hero-heart-btn" id="hero-heart-btn" title="Save to Library">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="hero-action-btn" id="hero-more-btn" title="More Options">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION: YOUR MIXES / QUICK PICKS (SCREEN 1) -->
+                    <section class="section mixes-section">
+                        <div class="section-header-row">
+                            <h2 class="section-heading">Your Mixes</h2>
+                            <button class="see-all-btn" id="mixes-see-all">See All</button>
+                        </div>
+                        <div class="quick-picks-grid" id="quick-picks-grid">
+                            <!-- Populated dynamically with Priyank's songs -->
+                        </div>
+                    </section>
+
+                    <!-- SECTION: RECENTLY PLAYED (SCREEN 1) -->
+                    <section class="section songs-collection-section">
+                        <div class="collection-header">
+                            <div class="header-left">
+                                <h2 class="section-heading" id="collection-title">Recently Played</h2>
+                                <p class="section-subtext" id="collection-subtext">All songs sung & recorded by Priyank Patel</p>
+                            </div>
+                            
+                            <div class="header-right">
+                                <!-- Filter Tabs -->
+                                <div class="filter-chips" id="filter-chips">
+                                    <button class="filter-chip active" data-filter="all">All Songs</button>
+                                    <button class="filter-chip" data-filter="hindi">Hindi Classics</button>
+                                    <button class="filter-chip" data-filter="english">English</button>
+                                    <button class="filter-chip" data-filter="liked"><i class="fas fa-heart"></i> Liked</button>
+                                </div>
+                                <button class="see-all-btn" id="see-all-btn">See All</button>
+                            </div>
+                        </div>
+
+                        <!-- Song Cards Grid (Desktop & Tablet) -->
+                        <div class="song-cards-grid" id="song-cards-grid">
+                            <!-- Populated dynamically -->
+                        </div>
+
+                        <!-- Mobile Vertical List for Screen 1 -->
+                        <div class="mobile-song-list" id="mobile-song-list">
+                            <!-- Populated dynamically with mobile list rows -->
+                        </div>
+                    </section>
+
+                    <!-- SINGER SPOTLIGHT & CONTACT BANNER -->
+                    <section class="singer-spotlight-card">
+                        <div class="spotlight-avatar">
+                            <img src="image/Priyank.jpg" alt="Priyank Patel">
+                        </div>
+                        <div class="spotlight-info">
+                            <div class="spotlight-tag">ABOUT THE ARTIST</div>
+                            <h3 class="spotlight-title">Vocals by Priyank Patel</h3>
+                            <p class="spotlight-bio">Every track on this website is personally sung and recorded by Priyank Patel. From soulful Hindi melodies like <em>Pal Pal Dil Ke Paas</em> & <em>Husn</em> to English ballads like <em>Die With a Smile</em>.</p>
+                            <div class="spotlight-contacts">
+                                <a href="tel:+919512771016" class="spotlight-contact-pill">
+                                    <i class="fas fa-phone-alt"></i> +91 95127 71016
+                                </a>
+                                <a href="mailto:patelpriyank2526@gmail.com" class="spotlight-contact-pill">
+                                    <i class="fas fa-envelope"></i> patelpriyank2526@gmail.com
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </div> <!-- End #home-view -->
+
+                <!-- ================= 2. SEARCH & BROWSE ALL VIEW (SCREEN 2) ================= -->
+                <div id="search-view" class="view-container" style="display: none;">
+                    <div class="search-view-header">
+                        <h1 class="search-page-title">Search</h1>
+                        
+                        <!-- Search Bar on Search Page -->
+                        <div class="search-page-input-wrap">
+                            <i class="fas fa-search search-page-icon"></i>
+                            <input type="text" id="search-page-input" class="search-page-input" placeholder="Search for songs, vocals, moods..." autocomplete="off">
+                            <button class="search-page-clear-btn" id="search-page-clear-btn" title="Clear">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Search Results Section (Live Filtering) -->
+                    <section class="search-results-section" id="search-results-section" style="display: none;">
+                        <h2 class="section-heading" id="search-results-heading">Search Results</h2>
+                        <div class="search-results-list" id="search-results-list">
+                            <!-- Populated dynamically when user searches -->
+                        </div>
+                    </section>
+
+                    <!-- Browse All Category Grid (Screen 2) -->
+                    <section class="browse-all-section" id="browse-all-section">
+                        <h2 class="section-heading">Browse All</h2>
+                        <div class="browse-cards-grid">
+                            <div class="browse-card card-hindi" data-playlist="hindi">
+                                <span class="browse-card-title">Hindi Classics</span>
+                                <div class="browse-card-art-wrap">
+                                    <img src="image/Pal Pal Dil Ke Paas.jpg" alt="Hindi Classics" class="browse-card-art">
+                                </div>
+                            </div>
+                            <div class="browse-card card-acoustic" data-playlist="acoustic">
+                                <span class="browse-card-title">Acoustic Hits</span>
+                                <div class="browse-card-art-wrap">
+                                    <img src="image/Husn.jpeg" alt="Acoustic Hits" class="browse-card-art">
+                                </div>
+                            </div>
+                            <div class="browse-card card-soulful" data-playlist="chill">
+                                <span class="browse-card-title">Soulful & Indie</span>
+                                <div class="browse-card-art-wrap">
+                                    <img src="image/Bulleya.jpeg" alt="Soulful & Indie" class="browse-card-art">
+                                </div>
+                            </div>
+                            <div class="browse-card card-english" data-playlist="english">
+                                <span class="browse-card-title">English Ballads</span>
+                                <div class="browse-card-art-wrap">
+                                    <img src="image/Die With a Smile.jpeg" alt="English Ballads" class="browse-card-art">
+                                </div>
+                            </div>
+                            <div class="browse-card card-romantic" data-playlist="hindi">
+                                <span class="browse-card-title">Romantic</span>
+                                <div class="browse-card-art-wrap">
+                                    <img src="image/Chudi Jo Khanki.jpg" alt="Romantic" class="browse-card-art">
+                                </div>
+                            </div>
+                            <div class="browse-card card-chill" data-playlist="chill">
+                                <span class="browse-card-title">Chill Vibes</span>
+                                <div class="browse-card-art-wrap">
+                                    <img src="image/Line Without a Hook.jpeg" alt="Chill Vibes" class="browse-card-art">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Trending Now Section (Screen 2) -->
+                    <section class="trending-section" id="trending-section">
+                        <div class="section-header-row">
+                            <h2 class="section-heading">Trending Now</h2>
+                            <button class="see-all-btn" id="trending-see-all">See All</button>
+                        </div>
+                        <div class="trending-list" id="trending-list">
+                            <!-- Populated dynamically with Priyank's songs -->
+                        </div>
+                    </section>
+                </div> <!-- End #search-view -->
+
+                <!-- ================= 3. DEDICATED PLAYLIST VIEW ================= -->
+                <div id="playlist-view" class="view-container" style="display: none;">
+                    <!-- Back Button Navigation -->
+                    <div class="playlist-nav-back">
+                        <button class="back-to-home-btn" id="back-to-home-btn" title="Back to Overview">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Back to Overview</span>
                         </button>
                     </div>
 
-                    <!-- Language Tabs -->
-                    <div class="language-tabs">
-                        <button class="language-tab active" data-language="all">All</button>
-                        <button class="language-tab" data-language="hindi">Hindi</button>
-                        <button class="language-tab" data-language="english">English</button>
-                    </div>
-                </div>
+                    <!-- Playlist Hero Header -->
+                    <header class="playlist-hero" id="playlist-hero">
+                        <div class="playlist-hero-artwork" id="pl-artwork-wrap">
+                            <img id="pl-artwork" src="image/Pal Pal Dil Ke Paas.jpg" alt="Playlist Cover">
+                            <div class="pl-artwork-heart" id="pl-artwork-heart" style="display: none;">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="playlist-hero-info">
+                            <span class="playlist-hero-tag">PLAYLIST</span>
+                            <h1 class="playlist-hero-title" id="pl-title">Chill Vibes</h1>
+                            <p class="playlist-hero-desc" id="pl-desc">Relax, unwind and let the music flow.</p>
+                            <div class="playlist-hero-meta">
+                                <span class="pl-artist-pill"><i class="fas fa-microphone-lines"></i> Priyank Patel</span>
+                                <span class="meta-dot">•</span>
+                                <span id="pl-stats">8 songs, 22 min</span>
+                            </div>
+                            
+                            <!-- Playlist Action Bar -->
+                            <div class="playlist-action-bar">
+                                <button class="pl-play-all-btn" id="pl-play-all-btn" title="Play All">
+                                    <i class="fas fa-play"></i>
+                                    <span>Play All</span>
+                                </button>
+                                <button class="pl-action-btn" id="pl-shuffle-btn" title="Shuffle Playlist">
+                                    <i class="fas fa-shuffle"></i>
+                                </button>
+                                <button class="pl-action-btn" id="pl-heart-btn" title="Like / Save Playlist">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </header>
 
-                <!-- Song List -->
-                <div class="playlist-container" id="playlist-container">
-                    <!-- Songs will be populated by JavaScript -->
-                </div>
+                    <!-- Full Song List Track Table -->
+                    <section class="tracklist-section">
+                        <div class="tracklist-table-wrap">
+                            <div class="tracklist-header-row">
+                                <div class="th-col col-num">#</div>
+                                <div class="th-col col-title">TITLE</div>
+                                <div class="th-col col-tag">GENRE / MOOD</div>
+                                <div class="th-col col-time"><i class="far fa-clock"></i></div>
+                                <div class="th-col col-like"></div>
+                            </div>
+                            <div class="tracklist-body" id="tracklist-body">
+                                <!-- Populated dynamically with all songs of the selected playlist -->
+                            </div>
+                        </div>
+                    </section>
+                </div> <!-- End #playlist-view -->
 
-                <!-- Mobile Playlist Actions -->
-                <div class="mobile-playlist-actions">
-                    <button class="mobile-action-btn" id="shuffle-all-btn">
-                        <i class="fas fa-random"></i>
-                        <span>Shuffle All</span>
-                    </button>
-                    <button class="mobile-action-btn" id="play-all-btn">
-                        <i class="fas fa-play"></i>
-                        <span>Play All</span>
-                    </button>
-                </div>
+                <div class="content-bottom-spacer"></div>
             </div>
-        </div>
-    </main>
+        </main>
 
-    <!-- Mobile Bottom Player -->
-    <div class="mobile-bottom-player" id="mobile-bottom-player">
-        <div class="mobile-player-progress" id="mobile-player-progress">
-            <div class="mobile-progress-bar" id="mobile-progress-bar"></div>
-        </div>
-        <div class="mobile-player-content">
-            <div class="mobile-player-info">
-                <img id="mobile-album-image" src="/placeholder.svg?height=50&width=50" alt="Album" class="mobile-album-thumb">
-                <div class="mobile-song-details">
-                    <div class="mobile-song-title" id="mobile-song-title">Select a song</div>
-                    <div class="mobile-artist-name" id="mobile-artist-name">Priyank Patel</div>
-                </div>
-            </div>
-            <div class="mobile-player-controls">
-                <button class="mobile-control-btn" id="mobile-prev-btn">
-                    <i class="fas fa-backward"></i>
+        <!-- ================= RIGHT SIDEBAR (NOW PLAYING DESKTOP) ================= -->
+        <aside class="now-playing-panel" id="now-playing-panel">
+            <div class="panel-header">
+                <h3 class="panel-title">Now Playing</h3>
+                <button class="panel-close-btn" id="close-now-playing" title="Close Panel">
+                    <i class="fas fa-times"></i>
                 </button>
-                <button class="mobile-control-btn primary" id="mobile-play-pause-btn">
+            </div>
+
+            <!-- Large Album Art Container -->
+            <div class="now-playing-art-wrap">
+                <div class="art-glow" id="art-glow"></div>
+                <img id="np-album-art" src="image/Pal Pal Dil Ke Paas.jpg" alt="Now Playing" class="np-album-art">
+                
+                <!-- Live Audio Visualizer Overlay -->
+                <div class="live-visualizer" id="live-visualizer">
+                    <span class="v-bar"></span>
+                    <span class="v-bar"></span>
+                    <span class="v-bar"></span>
+                    <span class="v-bar"></span>
+                    <span class="v-bar"></span>
+                </div>
+            </div>
+
+            <!-- Song Info & Heart -->
+            <div class="np-details-row">
+                <div class="np-song-info">
+                    <h4 class="np-song-title" id="np-song-title">Pal Pal Dil Ke Paas</h4>
+                    <p class="np-artist-name" id="np-artist-name">Priyank Patel</p>
+                </div>
+                <button class="np-heart-btn" id="np-heart-btn" title="Add to Liked Songs">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+
+            <!-- Right Panel Progress Section -->
+            <div class="np-progress-section">
+                <div class="np-progress-container" id="np-progress-container">
+                    <div class="np-progress-track">
+                        <div class="np-progress-bar" id="np-progress-bar"></div>
+                    </div>
+                    <div class="np-progress-thumb" id="np-progress-thumb"></div>
+                </div>
+                <div class="np-time-row">
+                    <span class="np-time-current" id="np-time-current">0:00</span>
+                    <span class="np-time-total" id="np-time-total">5:16</span>
+                </div>
+            </div>
+
+            <!-- Right Panel Playback Controls -->
+            <div class="np-controls-row">
+                <button class="np-ctrl-btn" id="np-shuffle-btn" title="Shuffle">
+                    <i class="fas fa-shuffle"></i>
+                </button>
+                <button class="np-ctrl-btn" id="np-prev-btn" title="Previous Song">
+                    <i class="fas fa-backward-step"></i>
+                </button>
+                <button class="np-play-pause-btn" id="np-play-pause-btn" title="Play/Pause">
                     <i class="fas fa-play"></i>
                 </button>
-                <button class="mobile-control-btn" id="mobile-next-btn">
-                    <i class="fas fa-forward"></i>
+                <button class="np-ctrl-btn" id="np-next-btn" title="Next Song">
+                    <i class="fas fa-forward-step"></i>
+                </button>
+                <button class="np-ctrl-btn" id="np-repeat-btn" title="Repeat">
+                    <i class="fas fa-repeat"></i>
                 </button>
             </div>
-        </div>
-    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="contact-links">
-                <a href="tel:+919512771016" class="contact-link">
-                    <i class="fas fa-phone"></i>
-                    <span>+91 9512771016</span>
-                </a>
-                <a href="mailto:patelpriyank2526@gmail.com" class="contact-link">
-                    <i class="fas fa-envelope"></i>
-                    <span>patelpriyank2526@gmail.com</span>
-                </a>
+            <!-- UP NEXT QUEUE -->
+            <div class="up-next-section">
+                <div class="up-next-header">
+                    <h4 class="up-next-title">Up Next</h4>
+                    <button class="queue-clear-btn" id="queue-shuffle-btn" title="Shuffle Queue">
+                        <i class="fas fa-random"></i>
+                    </button>
+                </div>
+                <div class="up-next-list" id="up-next-list">
+                    <!-- Populated dynamically with Priyank's songs -->
+                </div>
             </div>
-            <p class="copyright">© 2025 Priyank Patel. All rights reserved.</p>
+        </aside>
+
+    </div> <!-- End .app-container -->
+
+    <!-- ================= BOTTOM PERSISTENT PLAYER BAR (DESKTOP) ================= -->
+    <footer class="bottom-player-bar" id="bottom-player-bar">
+        <!-- Left: Current Song Info -->
+        <div class="player-left">
+            <div class="player-mini-art-wrap" id="mini-art-trigger" title="Open Full Player">
+                <img id="player-mini-art" src="image/Pal Pal Dil Ke Paas.jpg" alt="Album Cover" class="player-mini-art">
+                <div class="mini-art-overlay">
+                    <i class="fas fa-expand"></i>
+                </div>
+            </div>
+            <div class="player-mini-details">
+                <div class="player-mini-title" id="player-mini-title">Pal Pal Dil Ke Paas</div>
+                <div class="player-mini-artist" id="player-mini-artist">Priyank Patel</div>
+            </div>
+            <button class="player-heart-btn" id="player-heart-btn" title="Like song">
+                <i class="far fa-heart"></i>
+            </button>
+        </div>
+
+        <!-- Center: Playback Controls & Scrubber -->
+        <div class="player-center">
+            <div class="player-controls-row">
+                <button class="player-ctrl-btn" id="bar-shuffle-btn" title="Shuffle (S)">
+                    <i class="fas fa-shuffle"></i>
+                </button>
+                <button class="player-ctrl-btn" id="bar-prev-btn" title="Previous (Left Arrow)">
+                    <i class="fas fa-backward-step"></i>
+                </button>
+                <button class="player-main-play-btn" id="bar-play-pause-btn" title="Play/Pause (Space)">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="player-ctrl-btn" id="bar-next-btn" title="Next (Right Arrow)">
+                    <i class="fas fa-forward-step"></i>
+                </button>
+                <button class="player-ctrl-btn" id="bar-repeat-btn" title="Repeat (R)">
+                    <i class="fas fa-repeat"></i>
+                </button>
+            </div>
+
+            <!-- Progress Scrubber -->
+            <div class="player-scrubber-row">
+                <span class="scrub-time" id="bar-current-time">0:00</span>
+                <div class="scrub-container" id="bar-scrub-container">
+                    <div class="scrub-track">
+                        <div class="scrub-progress" id="bar-scrub-progress"></div>
+                    </div>
+                    <div class="scrub-thumb" id="bar-scrub-thumb"></div>
+                    <div class="scrub-hover-time" id="bar-scrub-hover-time">0:00</div>
+                </div>
+                <span class="scrub-time" id="bar-duration-time">5:16</span>
+            </div>
+        </div>
+
+        <!-- Right: Utility Controls (Queue, Volume, Fullscreen) -->
+        <div class="player-right">
+            <button class="player-util-btn" id="toggle-queue-btn" title="Toggle Queue / Now Playing">
+                <i class="fas fa-list-ul"></i>
+            </button>
+            <button class="player-util-btn" id="toggle-contact-btn" title="Singer Contact">
+                <i class="fas fa-id-card"></i>
+            </button>
+            
+            <!-- Volume Control -->
+            <div class="volume-slider-wrap">
+                <button class="player-util-btn volume-btn" id="bar-volume-btn" title="Mute/Unmute (M)">
+                    <i class="fas fa-volume-high"></i>
+                </button>
+                <div class="volume-slider-track" id="bar-volume-track">
+                    <div class="volume-slider-fill" id="bar-volume-fill"></div>
+                    <div class="volume-slider-thumb" id="bar-volume-thumb"></div>
+                </div>
+                <span class="volume-pct" id="bar-volume-pct">75%</span>
+            </div>
+
+            <button class="player-util-btn" id="fullscreen-btn" title="Toggle Fullscreen">
+                <i class="fas fa-up-right-and-down-left-from-center"></i>
+            </button>
         </div>
     </footer>
 
-    <!-- Audio Element -->
-    <audio id="audio" preload="metadata"></audio>
-
-    <!-- Now Playing Indicator -->
-    <div class="now-playing-indicator" id="now-playing-indicator">
-        <div class="now-playing-text">Now Playing</div>
-        <div class="now-playing-bars">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+    <!-- ================= MOBILE FLOATING MINI-PLAYER ================= -->
+    <div class="mobile-mini-player" id="mobile-mini-player">
+        <div class="mmp-progress-bar" id="mmp-progress-bar"></div>
+        <div class="mmp-content">
+            <div class="mmp-info" id="mmp-open-trigger">
+                <img id="mmp-art" src="image/Pal Pal Dil Ke Paas.jpg" alt="Song thumbnail" class="mmp-thumb">
+                <div class="mmp-details">
+                    <div class="mmp-title" id="mmp-title">Pal Pal Dil Ke Paas</div>
+                    <div class="mmp-artist" id="mmp-artist">Priyank Patel</div>
+                </div>
+            </div>
+            <div class="mmp-actions">
+                <button class="mmp-btn" id="mmp-heart-btn" title="Like song">
+                    <i class="far fa-heart"></i>
+                </button>
+                <button class="mmp-play-btn" id="mmp-play-btn" title="Play/Pause">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- Loading Spinner -->
-    <div class="loading-spinner" id="loading-spinner">
-        <div class="spinner"></div>
-        <p>Loading...</p>
+    <!-- ================= MOBILE NAVIGATION BAR ================= -->
+    <nav class="mobile-nav-bar" id="mobile-nav-bar">
+        <button class="mobile-nav-item active" data-view="home" id="mob-nav-home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </button>
+        <button class="mobile-nav-item" data-view="search" id="mob-nav-search">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </button>
+        <button class="mobile-nav-item" data-view="library" id="mob-nav-library">
+            <i class="fas fa-bars-staggered"></i>
+            <span>Your Library</span>
+        </button>
+    </nav>
+
+    <!-- ================= MOBILE FULL-SCREEN PLAYER SHEET (SCREEN 3) ================= -->
+    <div class="mobile-full-player" id="mobile-full-player">
+        <!-- Top Navigation -->
+        <div class="mfp-header">
+            <button class="mfp-collapse-btn" id="mfp-collapse-btn" title="Collapse Player">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="mfp-header-title">
+                <span class="mfp-context-sub">PLAYING FROM PLAYLIST</span>
+                <span class="mfp-context-name" id="mfp-context-name">Chill Vibes</span>
+            </div>
+            <button class="mfp-more-btn" id="mfp-more-btn" title="Options">
+                <i class="fas fa-ellipsis-v"></i>
+            </button>
+        </div>
+
+        <!-- Center Big Artwork -->
+        <div class="mfp-artwork-container">
+            <div class="mfp-art-glow" id="mfp-art-glow"></div>
+            <img id="mfp-art" src="image/Pal Pal Dil Ke Paas.jpg" alt="Song Art" class="mfp-art">
+        </div>
+
+        <!-- Song Details & Like -->
+        <div class="mfp-details-row">
+            <div class="mfp-song-info">
+                <h2 class="mfp-song-title" id="mfp-song-title">Pal Pal Dil Ke Paas</h2>
+                <p class="mfp-artist-name" id="mfp-artist-name">Priyank Patel</p>
+            </div>
+            <button class="mfp-heart-btn" id="mfp-heart-btn" title="Like song">
+                <i class="far fa-heart"></i>
+            </button>
+        </div>
+
+        <!-- Progress Scrubber -->
+        <div class="mfp-progress-section">
+            <div class="mfp-progress-container" id="mfp-progress-container">
+                <div class="mfp-progress-track">
+                    <div class="mfp-progress-bar" id="mfp-progress-bar"></div>
+                </div>
+                <div class="mfp-progress-thumb" id="mfp-progress-thumb"></div>
+            </div>
+            <div class="mfp-time-row">
+                <span class="mfp-time-current" id="mfp-time-current">0:00</span>
+                <span class="mfp-time-total" id="mfp-time-total">5:16</span>
+            </div>
+        </div>
+
+        <!-- Playback Controls Row -->
+        <div class="mfp-controls-row">
+            <button class="mfp-ctrl-btn" id="mfp-shuffle-btn" title="Shuffle">
+                <i class="fas fa-shuffle"></i>
+            </button>
+            <button class="mfp-ctrl-btn mfp-prev-btn" id="mfp-prev-btn" title="Previous">
+                <i class="fas fa-backward-step"></i>
+            </button>
+            <button class="mfp-play-pause-btn" id="mfp-play-pause-btn" title="Play/Pause">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="mfp-ctrl-btn mfp-next-btn" id="mfp-next-btn" title="Next">
+                <i class="fas fa-forward-step"></i>
+            </button>
+            <button class="mfp-ctrl-btn" id="mfp-repeat-btn" title="Repeat">
+                <i class="fas fa-repeat"></i>
+            </button>
+        </div>
+
+        <!-- Utility Row (Device + Queue) -->
+        <div class="mfp-utility-row">
+            <button class="mfp-util-btn" id="mfp-device-btn" title="Audio Device">
+                <i class="fas fa-podcast"></i>
+            </button>
+            <button class="mfp-util-btn" id="mfp-queue-btn" title="Queue">
+                <i class="fas fa-list-ul"></i>
+            </button>
+        </div>
+
+        <!-- Expandable Lyrics Drawer at Bottom (Screen 3) -->
+        <div class="mfp-lyrics-card" id="mfp-lyrics-card">
+            <div class="lyrics-card-header" id="lyrics-toggle-trigger">
+                <div class="lyrics-drag-handle"></div>
+                <div class="lyrics-header-row">
+                    <span class="lyrics-title">Lyrics & Vocal Notes</span>
+                    <i class="fas fa-chevron-up lyrics-chevron" id="lyrics-chevron"></i>
+                </div>
+            </div>
+            <div class="lyrics-content" id="lyrics-content">
+                <div class="lyrics-text" id="lyrics-text">
+                    <!-- Dynamically populated lyrics -->
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Toast Notifications -->
+    <!-- ================= SETTINGS & SINGER INFO MODAL ================= -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal-box">
+            <button class="modal-close" id="modal-close">&times;</button>
+            
+            <div class="modal-header">
+                <div class="modal-avatar-wrap">
+                    <img src="image/Priyank.jpg" alt="Priyank Patel" class="modal-avatar">
+                </div>
+                <div class="modal-title-group">
+                    <h3 class="modal-name">Priyank Patel</h3>
+                    <p class="modal-subtitle">Vocalist & Music Creator</p>
+                    <span class="modal-badge"><i class="fas fa-check-circle"></i> Official Song Portfolio</span>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h4>Direct Singer Contact</h4>
+                    <div class="contact-links-grid">
+                        <a href="tel:+919512771016" class="contact-card">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <span class="label">Mobile</span>
+                                <span class="value">+91 95127 71016</span>
+                            </div>
+                        </a>
+                        <a href="mailto:patelpriyank2526@gmail.com" class="contact-card">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <span class="label">Email</span>
+                                <span class="value">patelpriyank2526@gmail.com</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h4>Keyboard Shortcuts</h4>
+                    <div class="shortcuts-grid">
+                        <div class="shortcut-item"><kbd>Space</kbd> <span>Play / Pause</span></div>
+                        <div class="shortcut-item"><kbd>→</kbd> <span>Next Track / +5s</span></div>
+                        <div class="shortcut-item"><kbd>←</kbd> <span>Prev Track / -5s</span></div>
+                        <div class="shortcut-item"><kbd>M</kbd> <span>Mute / Unmute</span></div>
+                        <div class="shortcut-item"><kbd>S</kbd> <span>Toggle Shuffle</span></div>
+                        <div class="shortcut-item"><kbd>L</kbd> <span>Like Current Song</span></div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h4>About MyTunes</h4>
+                    <p class="modal-notes">This web player is exclusively dedicated to songs sung by Priyank Patel. Enjoy studio recordings, acoustic takes, and romantic melodies with zero ads or clutter.</p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <p>© 2026 Priyank Patel. All audio recordings reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden HTML5 Audio Element -->
+    <audio id="audio-engine" preload="auto"></audio>
+
+    <!-- Toast Notification Container -->
     <div class="toast-container" id="toast-container"></div>
 
+    <!-- Application Script -->
     <script src="script.js"></script>
 </body>
 </html>

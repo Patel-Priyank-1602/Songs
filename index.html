@@ -587,6 +587,9 @@
 
         <!-- Right: Utility Controls (Queue, Volume, Fullscreen) -->
         <div class="player-right">
+            <button class="player-util-btn" id="bar-lyrics-btn" title="Lyrics & Vocal Notes">
+                <i class="fas fa-align-left"></i>
+            </button>
             <button class="player-util-btn" id="toggle-queue-btn" title="Toggle Queue / Now Playing">
                 <i class="fas fa-list-ul"></i>
             </button>
@@ -731,14 +734,92 @@
             <div class="lyrics-card-header" id="lyrics-toggle-trigger">
                 <div class="lyrics-drag-handle"></div>
                 <div class="lyrics-header-row">
-                    <span class="lyrics-title">Lyrics & Vocal Notes</span>
-                    <i class="fas fa-chevron-up lyrics-chevron" id="lyrics-chevron"></i>
+                    <div class="lyrics-title-group">
+                        <i class="fas fa-align-left lyrics-icon"></i>
+                        <span class="lyrics-title">Lyrics & Vocal Notes</span>
+                    </div>
+                    <div class="lyrics-header-actions">
+                        <button class="lyrics-fullscreen-pill-btn" id="lyrics-open-full-btn" title="Open Entire Lyrics Fullscreen">
+                            <i class="fas fa-expand-alt"></i> Entire Lyrics
+                        </button>
+                        <i class="fas fa-chevron-up lyrics-chevron" id="lyrics-chevron"></i>
+                    </div>
                 </div>
             </div>
             <div class="lyrics-content" id="lyrics-content">
+                <div class="lyrics-tap-hint" id="lyrics-tap-hint">
+                    <i class="fas fa-expand-alt"></i> Tap here or "Entire Lyrics" to open full view
+                </div>
                 <div class="lyrics-text" id="lyrics-text">
                     <!-- Dynamically populated lyrics -->
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FULLSCREEN LYRICS VIEW (SPOTIFY / APPLE MUSIC STYLE) ================= -->
+    <div class="full-lyrics-overlay" id="full-lyrics-overlay">
+        <!-- Ambient glowing background -->
+        <div class="full-lyrics-glow" id="full-lyrics-glow"></div>
+
+        <!-- Top Bar -->
+        <header class="full-lyrics-header">
+            <button class="full-lyrics-close-btn" id="full-lyrics-close" title="Close Full Lyrics">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="full-lyrics-header-center">
+                <span class="full-lyrics-tag">VOCAL SESSIONS &bull; PRIYANK PATEL</span>
+                <h4 class="full-lyrics-title" id="full-lyrics-title">Pal Pal Dil Ke Paas</h4>
+            </div>
+            <button class="full-lyrics-copy-btn" id="full-lyrics-copy" title="Copy Entire Lyrics">
+                <i class="fas fa-copy"></i>
+            </button>
+        </header>
+
+        <!-- Scrollable Lyrics Container -->
+        <div class="full-lyrics-scroll-body" id="full-lyrics-scroll-body">
+            <div class="full-lyrics-art-banner">
+                <div class="fl-art-wrap">
+                    <img id="full-lyrics-art" src="image/Pal Pal Dil Ke Paas.jpg" alt="Song Art">
+                </div>
+                <div class="fl-details">
+                    <h2 class="fl-song-name" id="fl-song-name">Pal Pal Dil Ke Paas</h2>
+                    <p class="fl-singer-name">Priyank Patel</p>
+                    <span class="fl-category-badge" id="fl-category-badge">Classic Romantic</span>
+                </div>
+            </div>
+
+            <!-- Full Formatted Lyrics -->
+            <div class="full-lyrics-verses-container" id="full-lyrics-verses-container">
+                <!-- Dynamically populated formatted verses -->
+            </div>
+
+            <div class="full-lyrics-end-card">
+                <i class="fas fa-microphone-alt fl-mic-icon"></i>
+                <div class="fl-end-text">Vocals by Priyank Patel</div>
+                <p class="fl-end-sub">Recorded & Mastered for MyTunes Portfolio</p>
+            </div>
+        </div>
+
+        <!-- Sticky Floating Bottom Player in Full Lyrics -->
+        <div class="full-lyrics-mini-player">
+            <div class="flmp-time-row">
+                <span class="flmp-time" id="flmp-current-time">0:00</span>
+                <div class="flmp-progress-track" id="flmp-progress-track">
+                    <div class="flmp-progress-fill" id="flmp-progress-fill"></div>
+                </div>
+                <span class="flmp-time" id="flmp-total-time">5:16</span>
+            </div>
+            <div class="flmp-controls-row">
+                <button class="flmp-ctrl-btn" id="flmp-prev-btn" title="Previous Track">
+                    <i class="fas fa-backward-step"></i>
+                </button>
+                <button class="flmp-play-pause-btn" id="flmp-play-pause-btn" title="Play/Pause">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="flmp-ctrl-btn" id="flmp-next-btn" title="Next Track">
+                    <i class="fas fa-forward-step"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -780,7 +861,7 @@
                     </div>
                 </div>
 
-                <div class="modal-section">
+                <div class="modal-section keyboard-shortcuts-section">
                     <h4>Keyboard Shortcuts</h4>
                     <div class="shortcuts-grid">
                         <div class="shortcut-item"><kbd>Space</kbd> <span>Play / Pause</span></div>
@@ -799,7 +880,8 @@
             </div>
 
             <div class="modal-footer">
-                <p>© 2026 Priyank Patel. All audio recordings reserved.</p>
+                <p>&copy; 2026 Priyank Patel. All audio recordings reserved.</p>
+                <button class="modal-done-btn" id="modal-done-btn">Done</button>
             </div>
         </div>
     </div>

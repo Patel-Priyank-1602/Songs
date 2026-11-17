@@ -406,6 +406,28 @@ const mfpQueueBtn = document.getElementById("mfp-queue-btn");
 const mfpLyricsCard = document.getElementById("mfp-lyrics-card");
 const lyricsToggleTrigger = document.getElementById("lyrics-toggle-trigger");
 const lyricsText = document.getElementById("lyrics-text");
+const lyricsOpenFullBtn = document.getElementById("lyrics-open-full-btn");
+const lyricsTapHint = document.getElementById("lyrics-tap-hint");
+const lyricsContent = document.getElementById("lyrics-content");
+const barLyricsBtn = document.getElementById("bar-lyrics-btn");
+
+// Fullscreen Lyrics Overlay elements (Spotify / Apple Music experience)
+const fullLyricsOverlay = document.getElementById("full-lyrics-overlay");
+const fullLyricsClose = document.getElementById("full-lyrics-close");
+const fullLyricsCopy = document.getElementById("full-lyrics-copy");
+const fullLyricsTitle = document.getElementById("full-lyrics-title");
+const fullLyricsArt = document.getElementById("full-lyrics-art");
+const flSongName = document.getElementById("fl-song-name");
+const flCategoryBadge = document.getElementById("fl-category-badge");
+const fullLyricsVersesContainer = document.getElementById("full-lyrics-verses-container");
+const fullLyricsScrollBody = document.getElementById("full-lyrics-scroll-body");
+const flmpCurrentTime = document.getElementById("flmp-current-time");
+const flmpTotalTime = document.getElementById("flmp-total-time");
+const flmpProgressTrack = document.getElementById("flmp-progress-track");
+const flmpProgressFill = document.getElementById("flmp-progress-fill");
+const flmpPlayPauseBtn = document.getElementById("flmp-play-pause-btn");
+const flmpPrevBtn = document.getElementById("flmp-prev-btn");
+const flmpNextBtn = document.getElementById("flmp-next-btn");
 
 // Mobile Navigation Bar
 const mobNavHome = document.getElementById("mob-nav-home");
@@ -416,6 +438,7 @@ const mobNavLibrary = document.getElementById("mob-nav-library");
 const settingsModal = document.getElementById("settings-modal");
 const settingsTrigger = document.getElementById("settings-trigger");
 const modalClose = document.getElementById("modal-close");
+const modalDoneBtn = document.getElementById("modal-done-btn");
 const toastContainer = document.getElementById("toast-container");
 
 // ==========================================================================
@@ -1139,6 +1162,59 @@ function updateLikedCount() {
 }
 
 // ==========================================================================
+// FULLSCREEN LYRICS RENDERING & CONTROLS
+// ==========================================================================
+function renderFullLyrics(song) {
+    if (!song) song = songsData[currentSongIndex];
+    if (fullLyricsTitle) fullLyricsTitle.textContent = song.title;
+    if (flSongName) flSongName.textContent = song.title;
+    if (flCategoryBadge) flCategoryBadge.textContent = song.tag;
+    if (fullLyricsArt) {
+        fullLyricsArt.src = song.image;
+        fullLyricsArt.alt = song.title;
+    }
+
+    if (fullLyricsVersesContainer) {
+        fullLyricsVersesContainer.innerHTML = "";
+        const raw = lyricsDatabase[song.id] || "Lyrics not available for this recording.";
+        const blocks = raw.split(/\n\s*\n/);
+
+        blocks.forEach(block => {
+            const p = document.createElement("p");
+            const isNote = block.startsWith("(") && block.endsWith(")");
+            p.className = isNote ? "lyrics-note-verse" : "lyrics-verse";
+            p.textContent = block.trim();
+            fullLyricsVersesContainer.appendChild(p);
+        });
+    }
+
+    updateFullLyricsPlaybackUI();
+}
+
+function updateFullLyricsPlaybackUI() {
+    const playIcon = isPlaying ? "fa-pause" : "fa-play";
+    if (flmpPlayPauseBtn) flmpPlayPauseBtn.innerHTML = `<i class="fas ${playIcon}"></i>`;
+    if (audio.duration) {
+        const cur = audio.currentTime;
+        const dur = audio.duration;
+        const pct = (cur / dur) * 100;
+        if (flmpProgressFill) flmpProgressFill.style.width = `${pct}%`;
+        if (flmpCurrentTime) flmpCurrentTime.textContent = formatTime(cur);
+        if (flmpTotalTime) flmpTotalTime.textContent = formatTime(dur);
+    }
+}
+
+function openFullLyricsView() {
+    renderFullLyrics(songsData[currentSongIndex]);
+    if (fullLyricsOverlay) fullLyricsOverlay.classList.add("open");
+    if (fullLyricsScrollBody) fullLyricsScrollBody.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function closeFullLyricsView() {
+    if (fullLyricsOverlay) fullLyricsOverlay.classList.remove("open");
+}
+
+// ==========================================================================
 // 9. AUDIO ENGINE & PLAYBACK CONTROLS
 // ==========================================================================
 
@@ -1187,6 +1263,7 @@ function loadSong(index, autoPlay = false) {
     if (lyricsText) {
         lyricsText.textContent = lyricsDatabase[song.id] || "Lyrics not available for this recording.";
     }
+    renderFullLyrics(song);
 
     // 6. Heart Buttons Sync
     const isLiked = likedSongIds.has(song.id);
@@ -1279,6 +1356,7 @@ function updatePlayPauseUI() {
     if (heroPlayBtn) heroPlayBtn.innerHTML = `<i class="fas ${playIcon}"></i>`;
     if (mmpPlayBtn) mmpPlayBtn.innerHTML = `<i class="fas ${playIcon}"></i>`;
     if (mfpPlayPauseBtn) mfpPlayPauseBtn.innerHTML = `<i class="fas ${playIcon}"></i>`;
+    if (flmpPlayPauseBtn) flmpPlayPauseBtn.innerHTML = `<i class="fas ${playIcon}"></i>`;
 
     renderQuickPicks();
     renderSongCards();
@@ -1378,6 +1456,10 @@ audio.addEventListener("timeupdate", () => {
     if (mfpProgressBar) mfpProgressBar.style.width = `${pct}%`;
     if (mfpProgressThumb) mfpProgressThumb.style.left = `${pct}%`;
     if (mfpTimeCurrent) mfpTimeCurrent.textContent = formattedCurrent;
+
+    // Fullscreen Lyrics Player Bar
+    if (flmpProgressFill) flmpProgressFill.style.width = `${pct}%`;
+    if (flmpCurrentTime) flmpCurrentTime.textContent = formattedCurrent;
 });
 
 audio.addEventListener("loadedmetadata", () => {
@@ -1385,6 +1467,7 @@ audio.addEventListener("loadedmetadata", () => {
     if (npTimeTotal) npTimeTotal.textContent = formatted;
     if (barDurationTime) barDurationTime.textContent = formatted;
     if (mfpTimeTotal) mfpTimeTotal.textContent = formatted;
+    if (flmpTotalTime) flmpTotalTime.textContent = formatted;
 });
 
 audio.addEventListener("ended", () => {
@@ -1662,7 +1745,70 @@ function initEventListeners() {
     // Expandable Lyrics Drawer in MFP
     if (lyricsToggleTrigger) {
         lyricsToggleTrigger.addEventListener("click", () => {
-            if (mfpLyricsCard) mfpLyricsCard.classList.toggle("expanded");
+            if (mfpLyricsCard) {
+                const willExpand = !mfpLyricsCard.classList.contains("expanded");
+                mfpLyricsCard.classList.toggle("expanded");
+                if (willExpand) {
+                    setTimeout(() => {
+                        mfpLyricsCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                    }, 100);
+                }
+            }
+        });
+    }
+
+    // Open Fullscreen Lyrics View Triggers
+    if (lyricsOpenFullBtn) {
+        lyricsOpenFullBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openFullLyricsView();
+        });
+    }
+    if (lyricsTapHint) {
+        lyricsTapHint.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openFullLyricsView();
+        });
+    }
+    if (lyricsContent) {
+        lyricsContent.addEventListener("click", () => {
+            openFullLyricsView();
+        });
+    }
+    if (barLyricsBtn) {
+        barLyricsBtn.addEventListener("click", openFullLyricsView);
+    }
+    if (fullLyricsClose) {
+        fullLyricsClose.addEventListener("click", closeFullLyricsView);
+    }
+    if (fullLyricsCopy) {
+        fullLyricsCopy.addEventListener("click", () => {
+            const song = songsData[currentSongIndex];
+            const text = lyricsDatabase[song.id] || "";
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Entire lyrics copied to clipboard!", "fa-copy");
+            }).catch(() => {
+                showToast("Could not copy lyrics", "fa-exclamation-triangle");
+            });
+        });
+    }
+    if (flmpPlayPauseBtn) {
+        flmpPlayPauseBtn.addEventListener("click", togglePlayPause);
+    }
+    if (flmpPrevBtn) {
+        flmpPrevBtn.addEventListener("click", playPrevSong);
+    }
+    if (flmpNextBtn) {
+        flmpNextBtn.addEventListener("click", playNextSong);
+    }
+    if (flmpProgressTrack) {
+        flmpProgressTrack.addEventListener("click", (e) => {
+            const rect = flmpProgressTrack.getBoundingClientRect();
+            const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+            if (audio.duration) {
+                audio.currentTime = ratio * audio.duration;
+                updateFullLyricsPlaybackUI();
+            }
         });
     }
 
@@ -1739,6 +1885,7 @@ function initEventListeners() {
     if (topbarProfileTrigger) topbarProfileTrigger.addEventListener("click", openSettingsModal);
     if (settingsTrigger) settingsTrigger.addEventListener("click", openSettingsModal);
     if (modalClose) modalClose.addEventListener("click", closeSettingsModal);
+    if (modalDoneBtn) modalDoneBtn.addEventListener("click", closeSettingsModal);
     if (settingsModal) {
         settingsModal.addEventListener("click", (e) => {
             if (e.target === settingsModal) closeSettingsModal();
@@ -1797,6 +1944,7 @@ function setupKeyboardShortcuts() {
                 break;
             case "Escape":
                 closeSettingsModal();
+                closeFullLyricsView();
                 if (nowPlayingPanel) nowPlayingPanel.classList.remove("open");
                 if (mobileFullPlayer) mobileFullPlayer.classList.remove("open");
                 if (currentView !== "home") openHomeView();

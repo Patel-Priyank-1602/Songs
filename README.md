@@ -47,7 +47,6 @@ A sleek, aesthetic, Spotify-inspired web music player exclusively showcasing the
 ## 📬 Contact the Artist
 
 - 🎤 **Artist**: Priyank Patel
-- 📱 **Mobile**: [+91 95127 71016](tel:+919512771016)
 - 📧 **Email**: [patelpriyank2526@gmail.com](mailto:patelpriyank2526@gmail.com)
 
 ---
